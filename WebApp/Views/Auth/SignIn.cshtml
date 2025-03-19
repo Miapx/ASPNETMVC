@@ -1,0 +1,37 @@
+﻿@model LoginFormModel
+
+@{
+	Layout = "_CleanLayout";
+	ViewData["Title"] = "Sign In";
+}
+
+<div class="surface">
+    <div class="temp">
+		<h2>@ViewData["Title"]</h2>
+
+		<form method="post" asp-action="signin" novalidate>
+			<div class="mb-3">
+				<label asp-for="Email" class="form-label"></label>
+				<input asp-for="Email" class="form-control">
+				<span asp-validation-for="Email" class="text-danger"></span>
+			</div>
+
+			<div class="mb-3">
+				<label asp-for="Password" class="form-label"></label>
+				<input asp-for="Password" class="form-control">
+				<span asp-validation-for="Password" class="text-danger"></span>
+			</div>
+
+			<div class="accept-tc">
+				<input asp-for="RememberMe" type="checkbox" class="checkbox"><span>Remember me</span>
+				<span asp-validation-for="RememberMe" class="text-danger"></span>
+
+			</div>
+
+			<button type="submit" class="btn btn-blue">Log in</button>
+		</form>
+
+		<p class="signuporin">Don't have an account? <a href="#">Sign up</a></p>
+
+    </div>
+</div>

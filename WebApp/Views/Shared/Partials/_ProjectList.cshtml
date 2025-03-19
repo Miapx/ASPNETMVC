@@ -1,0 +1,8 @@
+﻿
+<div class="project-items-list ">
+
+	@foreach (var project in projectService.GetProjects()) 
+{
+	@await Html.PartialAsync("Partials/_ProjectListItem", project)
+}
+</div>

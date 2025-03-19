@@ -1,0 +1,53 @@
+﻿@model SignUpFormModel
+
+@{
+	Layout = "_CleanLayout";
+	ViewData["Title"] = "Sign Up";
+}
+
+<div class="surface">
+	<div class="temp">
+		<h2>@ViewData["Title"]</h2>
+
+		<form method="post"  asp-action="SignUp" novalidate>
+			<div class="mb-3">
+				<label asp-for="FullName" class="form-label"></label>
+				<input asp-for="FullName" class="form-control">
+				<span asp-validation-for="FullName" class="text-danger"></span>
+			</div>
+
+			<div class="mb-3">
+				<label asp-for="Email" class="form-label"></label>
+				<input asp-for="Email" class="form-control">
+				<span asp-validation-for="Email" class="text-danger"></span>
+
+			</div>
+
+			<div class="mb-3">
+				<label asp-for="Password" class="form-label"></label>
+				<input asp-for="Password" class="form-control">
+				<span asp-validation-for="Password" class="text-danger"></span>
+
+			</div>
+
+			<div class="mb-3">
+				<label asp-for="ConfirmPassword" class="form-label"></label>
+				<input asp-for="ConfirmPassword" class="form-control">
+				<span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+			</div>
+
+			<div class="accept-tc">
+				<input asp-for="AcceptTC" type="checkbox" class="checkbox"><span>I accept <a href="#">Terms and Conditions</a></span>
+				<span asp-validation-for="AcceptTC" class="text-danger"></span>
+
+			</div>
+
+			<button type="submit" class="btn btn-blue">Submit</button>
+
+		</form>
+
+		<p class="signuporin">Already have an account? <a href="#">Log In</a></p>
+
+	</div>
+</div>

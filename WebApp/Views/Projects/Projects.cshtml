@@ -1,0 +1,29 @@
+﻿@* Detta är själva sidan/vyn, denna ska vara login. Skriv med razorkod. 
+För att hämta modellen för listan av projekt
+	@model HomeViewModel
+
+För att köra dependency injection med exempelvis services och slipper då Modeller
+@using Business.Services - FLYTTA TILL VIEWIMPORTS
+@inject ProjectService projectService - FLYTTA TILL VIEWIMPORTS
+Kan då använda servicen direkt här för att loopa ut listan
+var projects = projectService.GetAllProjects();
+
+För att sätta titeln ViewData["Title"] = "Home";
+
+För att sätta en annan layout fil Layout = "LoginLayout"
+ *@
+
+
+
+@* För att loopa ut listan i modellen: 
+	@foreach (var item in Model.Projects) {<div>@item</div>}
+ *@
+
+@{
+	Layout = "_PortalLayout";
+	ViewData["Title"] = "Projects";
+}
+
+
+
+@await Html.PartialAsync("Partials/_ProjectList")
