@@ -17,7 +17,7 @@ public class SignUpFormModel
     [Display(Name = "Password", Prompt = "Enter your password")]
     [Required(ErrorMessage = "Required")]
     [DataType(DataType.Password)]
-    [RegularExpression(@"^(?=.*[a-ö])(?=.*[A-Ö])(?=.*\d)(?=.*[\W_]).{8,}$", ErrorMessage = "Password must be atleast 8 characters, contain one number, one special character, one uppercase and one lowercase letter")]
+    [RegularExpression(@"^(?=.*[a-ö])(?=.*[A-Ö])(?=.*\d)(?=.*[\W_]).{8,}$", ErrorMessage = "Enter a strong password")]
     public string Password { get; set; } = null!;
 
     [Display(Name = "Confirm password", Prompt = "Enter your password again")]
