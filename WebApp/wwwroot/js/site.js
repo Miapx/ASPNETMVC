@@ -1,4 +1,29 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿document.addEventListener('DOMContentLoaded', () => {
 
-// Write your JavaScript code.
+    //open modal
+    const modalButtons = document.querySelectorAll('[data-modal="true"]')
+
+    modalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modalTarget = button.getAttribute('data-target')
+            const modal = document.querySelector(modalTarget)
+
+            if (modal)
+                modal.style.display = 'flex';
+        })
+    })
+
+    //close modal
+    const closeButtons = document.querySelectorAll('[data-close="true"]')
+    closeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modal = button.closest('.modal')
+            if (modal) {
+                modal.style.display = 'none'
+
+                //clear formdata
+            }
+        })
+    })
+
+})

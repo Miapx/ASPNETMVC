@@ -29,7 +29,7 @@ app.MapStaticAssets();
 // Default route - vart ska förstasidan vara
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Auth}/{action=signin}/{id?}")
+    pattern: "{controller=Projects}/{action=projects}/{id?}")
     .WithStaticAssets();
 
 // Kör appen

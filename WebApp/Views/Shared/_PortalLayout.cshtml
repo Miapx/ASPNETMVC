@@ -16,7 +16,6 @@
    <link rel="stylesheet" href="~/WebApp.styles.css" asp-append-version="true" />
 </head>
 <body>
-
     <div class="portal">
         <div class="side">
 			<a href="@Url.Content("~/")"> <img class="img" src="~/images/Logo.svg" alt=""> <span>alpha</span></a>
@@ -28,10 +27,16 @@
             <div><img src="~/images/avatar.svg"></div>
         </div>
 
+
         <div class="main">
+
+            <div>
+                @await Html.PartialAsync("Partials/_AddProjectModal")
+            </div>
+
             <header class="d-flex justify-content-between">
                 <h2>Projects</h2>
-                <button class="btn btn-blue"><i class="fa-solid fa-plus"></i> Add Project</button>
+                <button class="btn btn-blue" data-modal="true" data-target="#addProjectModal"><i class="fa-solid fa-plus"></i> Add Project</button>
             </header>
 
             <div class="status-menu">
