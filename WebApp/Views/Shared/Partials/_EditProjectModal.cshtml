@@ -1,18 +1,19 @@
-﻿@model AddProjectFormModel
+﻿@model EditProjectFormModel
 
-
-<div id="addProjectModal" class="modal">
+<div id="editProjectModal" class="modal">
 	<div class="modal-content">
 
 		<div class="modal-header">
-			<h3>Add Project</h3>
+			<h3>Edit Project</h3>
 			<button type="button" class="btn-close" data-close="true"></button>
 		</div>
 		<div class="modal-icon">
 			<img src="/images/project-logo.svg" alt="Alternate Text" />
 		</div>
-		<form novalidate method="post" asp-action="AddProject" asp-controller="Projects">
-
+		<form novalidate method="post" asp-action="EditProject" asp-controller="Projects">
+@* 			LÄGG TILLBAKA NÄR ID FINNS PÅ MODELLEN 
+	<input asp-for="ProjectId" readonly type="hidden" />
+ *@
 			<div class="form-group mb-3">
 				<label asp-for="ProjectName" class="form-label"></label>
 				<div class="field-group">
@@ -37,7 +38,7 @@
 				</div>
 			</div>
 
-			<div class="d-flex justify-content-between"> 
+			<div class="d-flex justify-content-between">
 				<div class="form-group mb-3">
 					<label asp-for="StartDate" class="form-label"></label>
 					<div class="field-group datewidth">
@@ -63,7 +64,7 @@
 				</div>
 			</div>
 
-			<button type="submit" class="btn btn-blue">Create</button>
+			<button type="submit" class="btn btn-blue">Save</button>
 		</form>
 
 	</div>

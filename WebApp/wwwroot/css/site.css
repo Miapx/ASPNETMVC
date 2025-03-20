@@ -219,7 +219,7 @@ form button {
 
 /* modal */
 .modal {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     background-color: var(--modal-screen-background-color);
