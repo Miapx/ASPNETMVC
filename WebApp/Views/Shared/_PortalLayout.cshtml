@@ -23,7 +23,10 @@
         </div>
 
         <div class="top">
-            <div><button><i class="fa-solid fa-gear"></i></button></div>
+            <div>
+                @await Html.PartialAsync("Partials/_UserInfoModal")
+            </div>
+            <div><button data-modal="true" data-target="#userInfoModal" data-toggle="modal"><i class="fa-solid fa-gear"></i></button></div>
             <div><img src="~/images/avatar.svg"></div>
         </div>
 

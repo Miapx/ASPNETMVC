@@ -13,11 +13,12 @@
         })
     })
 
-    //close modal
+    //close big modal
     const closeButtons = document.querySelectorAll('[data-close="true"]')
     closeButtons.forEach(button => {
         button.addEventListener('click', () => {
             const modal = button.closest('.modal')
+
             if (modal) {
                 modal.style.display = 'none'
 
@@ -25,6 +26,32 @@
             }
         })
     })
+
+    //open small modal (user logout)
+
+    //var openButton = document.querySelector('[data-target="#userInfoModal"]');
+    //openButton.addEventListener('click', function () {
+    //    smallModal.style.display = "block";
+    //});
+
+
+
+    //close small modal(user logout)
+
+    var smallModal = document.getElementById("userInfoModal");
+
+    window.onclick = function (e) {
+        if (e.target == smallModal) {
+            smallModal.style.display = "none";
+        }
+    }
+
+
+
+
+
+
+
 
     //handle submit forms
     const forms = document.querySelectorAll('form')
