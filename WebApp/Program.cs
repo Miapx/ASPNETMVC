@@ -20,6 +20,15 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(x =>
     .AddEntityFrameworkStores<DataContext>()
     .AddDefaultTokenProviders(); //för lösenordsåterställning
 
+builder.Services.ConfigureApplicationCookie(x =>
+{
+    x.LoginPath = "/auth/signin";
+    x.LogoutPath = "/auth/signout";
+    x.AccessDeniedPath = "/auth/denied"; 
+    x.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    x.SlidingExpiration = true;
+});
+
 // Lägg till services här
 // builder.Services.AddScoped/Singleton/Transient();
 builder.Services.AddScoped<UserService>();
