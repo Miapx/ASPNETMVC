@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApp.Models;
 
 namespace WebApp.Controllers;
@@ -7,6 +8,7 @@ namespace WebApp.Controllers;
 // Högerklicka View och Add view (razor empty) - där skrivs razorkoden.
 // Index ska vara login, sen behövs Create account och portalen. 
 
+[Authorize]
 public class ProjectsController : Controller
 {
     //private readonly ProjectService _projectService;

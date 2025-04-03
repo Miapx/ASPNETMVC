@@ -9,7 +9,8 @@
 	<div class="temp">
 		<h2>@ViewData["Title"]</h2>
 
-		<form method="post"  asp-action="SignUp" novalidate>
+		@* 		Lagt till asp-controller här *@
+		<form method="post" asp-controller="Auth" asp-action="signup" novalidate>
 			<div class="mb-3">
 				<label asp-for="FullName" class="form-label"></label>
 				<input asp-for="FullName" class="form-control">
@@ -39,15 +40,15 @@
 
 			<div class="accept-tc">
 				<input asp-for="AcceptTC" type="checkbox" class="checkbox"><span>I accept <a href="#">Terms and Conditions</a></span>
-				<span asp-validation-for="AcceptTC" class="text-danger"></span>
-
 			</div>
+			<div> <span asp-validation-for="AcceptTC" class="text-danger"></span></div>
+
 
 			<button type="submit" class="btn btn-blue">Submit</button>
 
 		</form>
 
-		<p class="signuporin">Already have an account? <a href="#">Log In</a></p>
+		<p class="signuporin">Already have an account? <a asp-action="signin" asp-controller="Auth">Log In</a></p>
 
 	</div>
 </div>

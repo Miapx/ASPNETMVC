@@ -1,10 +1,28 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using WebApp.Data.Contexts;
+using WebApp.Models;
 using WebApp.Services;
 
 // Buildern gör att vi kan registrera services
 var builder = WebApplication.CreateBuilder(args);
 
+//Registrerar DataContext
+builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("LocalDb")));
+
+builder.Services.AddIdentity<AppUser, IdentityRole>(x =>
+{
+    x.Password.RequiredLength = 8;
+    x.User.RequireUniqueEmail = true;
+    x.SignIn.RequireConfirmedEmail = false;
+})
+    .AddEntityFrameworkStores<DataContext>()
+    .AddDefaultTokenProviders(); //för lösenordsåterställning
+
 // Lägg till services här
 // builder.Services.AddScoped/Singleton/Transient();
+builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<ProjectService>();
 
 builder.Services.AddControllersWithViews();
@@ -29,8 +47,8 @@ app.MapStaticAssets();
 // Default route - vart ska förstasidan vara
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Projects}/{action=projects}/{id?}")
+    pattern: "/{controller=Auth}/{action=SignIn}/{id?}")
     .WithStaticAssets();
 
-// Kör appen
+// Kör appen   
 app.Run();

@@ -9,7 +9,8 @@
     <div class="temp">
 		<h2>@ViewData["Title"]</h2>
 
-		<form method="post" asp-action="signin" novalidate>
+@* 		Lagt till asp-controller här *@
+		<form method="post" asp-controller="Auth" asp-action="signin" novalidate>
 			<div class="mb-3">
 				<label asp-for="Email" class="form-label"></label>
 				<input asp-for="Email" class="form-control">
@@ -31,7 +32,7 @@
 			<button type="submit" class="btn btn-blue">Log in</button>
 		</form>
 
-		<p class="signuporin">Don't have an account? <a href="#">Sign up</a></p>
+		<p class="signuporin">Don't have an account? <a asp-action="signup" asp-controller="Auth">Sign up</a></p>
 
     </div>
 </div>

@@ -1,12 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using WebApp.Models;
+using WebApp.Services;
 
 namespace WebApp.Controllers;
 
-public class AuthController : Controller
+public class AuthController(UserService userService, SignInManager<AppUser> signInManager) : Controller
 {
+    private readonly UserService _userService = userService;
+    private readonly SignInManager<AppUser> _signInManager = signInManager;
+
     [HttpGet]
-    [Route("signin")]
+    //[Route("signin")]
     public IActionResult SignIn()
     {
         var model = new LoginFormModel();
@@ -15,12 +20,17 @@ public class AuthController : Controller
     }
 
     [HttpPost]
-    [Route("signin")]
-    public IActionResult SignIn(LoginFormModel formData)
+    //[Route("signin")]
+    public async Task<IActionResult> SignIn(LoginFormModel formData)
     {
-        if (!ModelState.IsValid)
-            return View(formData);
+        if (ModelState.IsValid)
+        {
+            var result = await _signInManager.PasswordSignInAsync(formData.Email, formData.Password, false, false);
+            if (result.Succeeded)
+                return RedirectToAction("Projects", "Projects");
+        }
 
+        ViewData["ErrorMessage"] = "Incorrect email or password";
         return View(formData);
     }
 
@@ -35,17 +45,29 @@ public class AuthController : Controller
 
     [HttpPost]
     [Route("signup")]
-    public IActionResult SignUp(SignUpFormModel formData)
+    public async Task<IActionResult> SignUp(SignUpFormModel formData)
     {
         if (!ModelState.IsValid)
             return View(formData);
 
-        // usermanager med identity 
-        // redirect to login?
+        if (await _userService.ExistsAsync(formData.Email))
+        {
+            ModelState.AddModelError("Exists", "User already exists");
+            return View(formData);
+        }
 
-        return View();
+        var result = await _userService.CreateAsync(formData);
+
+        if (result) 
+            return RedirectToAction("signin", "Auth");
+
+        ModelState.AddModelError("NotCreated", "User was not created");
+        return View(formData);
     }
 
-
-    //Skapa SignOut här
+    public new async Task<IActionResult> SignOut()
+    {
+        await _signInManager.SignOutAsync();
+        return RedirectToAction("signin", "Auth");
+    }
 }
