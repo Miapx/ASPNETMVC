@@ -1,18 +1,81 @@
-﻿using WebApp.Models;
+﻿using WebApp.Data.Entities;
+using WebApp.Data.Repositories;
+using WebApp.Models;
 
 namespace WebApp.Services;
 
-public class ProjectService
+public class ProjectService(ProjectRepository projectRepository, StatusService statusService)
 {
-    private List<Project> _projects =
-        [
-        new Project { Id = 1, ProjectName = "Project 1" },
-        new Project { Id = 2, ProjectName = "Project 2" },
-        new Project { Id = 3, ProjectName = "Project 3" }
-        ];
+   private readonly ProjectRepository _projectRepository = projectRepository;
+    private readonly StatusService _statusService = statusService;
 
-    public IEnumerable<Project> GetProjects()
+    public async Task<bool> CreateProjectAsync(AddProjectFormModel formData)
     {
-        return _projects;
+        var project = await _projectRepository.GetAsync(x => x.ProjectName == formData.ProjectName);
+        if (project != null) 
+            return false;
+
+        project = new ProjectEntity
+        {
+            ProjectName = formData.ProjectName,
+            Description = formData.Description,
+            ClientName = formData.ClientName,
+            StartDate = formData.StartDate,
+            EndDate = formData.EndDate,
+            Budget = formData.Budget
+        };
+
+        //Sätter status HUUUUUR ????? Hans sätt:
+        //var status = await _statusService.GetStatusByIdAsync(1);
+        //project.StatusId = status.Id;
+
+        //ChatGPT:
+        // Sätt status baserat på start/slutdatum
+        var today = DateTime.Today;
+
+        string statusName;
+
+        if (today >= formData.StartDate && today <= formData.EndDate)
+            statusName = "Started";
+        else
+            statusName = "Completed";
+
+        // Hämta statusobjektet från databasen
+        var status = await _statusService.GetStatusByNameAsync(statusName);
+        project.StatusId = status.Id;
+
+
+        var result = await _projectRepository.CreateAsync(project);
+        return result;
+    }
+
+    public async Task<IEnumerable<Project>> GetAllProjectsAsync()
+    {
+        var entities = await _projectRepository.GetAllAsync
+            (
+            orderByDescending: true,
+            sortBy: x => x.Created,
+            where: null,
+            include => include.Status
+            );
+
+        var result = entities.Select(x => new Project
+        {
+            Id = x.Id,
+            ProjectName = x.ProjectName,
+            ClientName = x.ClientName,
+            Description = x.Description,
+            StartDate = x.StartDate,
+            EndDate = x.EndDate,
+            Budget = x.Budget,
+            Status = new Status
+            {
+                Id = x.Status.Id,
+                StatusName = x.Status.StatusName
+            }
+        });
+
+        return result;
+        
     }
 }

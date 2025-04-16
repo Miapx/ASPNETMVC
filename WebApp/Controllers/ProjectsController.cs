@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Models;
+using WebApp.Services;
 
 namespace WebApp.Controllers;
 
@@ -9,9 +10,10 @@ namespace WebApp.Controllers;
 // Index ska vara login, sen behövs Create account och portalen. 
 
 [Authorize]
-public class ProjectsController : Controller
+public class ProjectsController(ProjectService projectService) : Controller
 {
-    //private readonly ProjectService _projectService;
+    private readonly ProjectService _projectService = projectService;
+
     public IActionResult Projects()
     {
         var formData = new AddProjectFormModel();
@@ -22,7 +24,7 @@ public class ProjectsController : Controller
     }
 
     [HttpPost]
-    public IActionResult AddProject(AddProjectFormModel formData)
+    public async Task<IActionResult> AddProject(AddProjectFormModel formData)
     {
         if (!ModelState.IsValid)
         {
@@ -36,12 +38,15 @@ public class ProjectsController : Controller
         }
 
         //Skicka data till vår service
-        //var result = await _projectService.AddProjectAsync(formData)
-        //if (result) { return Ok( new { success = true });
-        //else { return Problem("Unable to submit data") }
-        //Ta bort nedan return OK()
-
-        return Ok();
+        var result = await _projectService.CreateProjectAsync(formData);
+        if (result)
+        {
+            return Ok(new { success = true });
+        }
+        else
+        {
+            return Problem("Unable to submit data"); 
+        }
     }
 
 
@@ -71,3 +76,4 @@ public class ProjectsController : Controller
     //Lägg till för att omdirigera utloggning till förstasidan
     //IActionResult SignOut() { return RedirectToAction("Index", "Home"}
 }
+

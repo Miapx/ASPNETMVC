@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WebApp.Data.Contexts;
+using WebApp.Data.Repositories;
 using WebApp.Models;
 using WebApp.Services;
 
@@ -29,14 +30,35 @@ builder.Services.ConfigureApplicationCookie(x =>
     x.SlidingExpiration = true;
 });
 
+//Lägg till repositories
+builder.Services.AddScoped<ProjectRepository>();
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<StatusRepository>();
+
+
 // Lägg till services här
 // builder.Services.AddScoped/Singleton/Transient();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<ProjectService>();
+builder.Services.AddScoped<StatusService>();
+
 
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+//ChatGPT för Statusarna
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<DataContext>();
+
+    // Kör EF-migrationer automatiskt (valfritt)
+    context.Database.Migrate();
+
+    // Seedar standardstatusar
+    DbSeeder.SeedStatuses(context);
+}
+
 
 // Tvingar webbläsaren att bara använda https
 app.UseHsts();
@@ -45,6 +67,9 @@ app.UseHsts();
 app.UseHttpsRedirection();
 // Möjliggör routing
 app.UseRouting();
+
+//Tillagt på Hans begäran i Tips&Trix backend
+app.UseAuthentication();
 
 // Skyddar olika sidor som bara ska visas för inloggade
 // Använd autorize på sådana sidor

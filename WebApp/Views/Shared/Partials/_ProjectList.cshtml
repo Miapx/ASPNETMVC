@@ -1,7 +1,9 @@
-﻿
+﻿@{
+    var projects = await projectService.GetAllProjectsAsync();
+}
 <div class="project-items-list ">
 
-	@foreach (var project in projectService.GetProjects()) 
+	@foreach (var project in projects) 
 {
 	@await Html.PartialAsync("Partials/_ProjectListItem", project)
 }

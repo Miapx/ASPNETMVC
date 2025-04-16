@@ -4,8 +4,6 @@ namespace WebApp.Models;
 
 public class AddProjectFormModel
 {    
-    //public int ProjectId { get; set; } 
-
     [Display(Name = "Project Name", Prompt = "Project Name")]
     [Required(ErrorMessage = "Required")]
     public string ProjectName { get; set; } = null!;
@@ -31,5 +29,5 @@ public class AddProjectFormModel
     [Display(Name = "Budget", Prompt = "0")]
     [Required(ErrorMessage = "Required")]
     public decimal Budget {  get; set; }
-    //public StatusModel ProjectStatus { get; set; } = null!;
+    public int StatusId { get; set; } 
 }

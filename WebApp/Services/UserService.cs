@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using WebApp.Data.Repositories;
 using WebApp.Models;
 
 namespace WebApp.Services;
 
-public class UserService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+public class UserService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, UserRepository userRepository)
 {
+    private readonly UserRepository _userRepository = userRepository;
     private readonly UserManager<AppUser> _userManager = userManager;
     private readonly SignInManager<AppUser> _signInManager = signInManager;
 
@@ -33,4 +35,18 @@ public class UserService(UserManager<AppUser> userManager, SignInManager<AppUser
         }
             return false;
     }
+
+    //Gjort själv, ingen aning om det funkar
+    public async Task<UserModel> GetUserAsync(string email)
+    {
+        var entity = await _userRepository.GetAsync(u => u.Email == email);
+        var userModel = new UserModel
+        {
+            Id = entity.Id,
+            FullName = entity.FullName,
+            Email = entity.Email
+        };
+        return userModel;
+    }
+
 }
