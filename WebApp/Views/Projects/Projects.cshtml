@@ -1,4 +1,6 @@
-﻿@* Detta är själva sidan/vyn, denna ska vara login. Skriv med razorkod. 
+﻿@using WebApp.ViewModels
+@model ProjectsViewModel 
+@* Detta är själva sidan/vyn, denna ska vara login. Skriv med razorkod. 
 För att hämta modellen för listan av projekt
 	@model HomeViewModel
 
@@ -25,13 +27,22 @@ För att sätta en annan layout fil Layout = "LoginLayout"
 }
 
 
+<section class="project-items-list ">
+	@if (Model.Projects.Any()) {
+		@foreach (var project in Model.Projects)
+		{
+			@await Html.PartialAsync("Partials/_ProjectListItem", project)
+		}
 
-@await Html.PartialAsync("Partials/_ProjectList")
+	}
+	else
+	{
+		<p>No projects </p>
+	}
+</section>
 
-
-<div id="editform-container">
-	@await Html.PartialAsync("Partials/_EditProjectModal")
-</div>
+@await Html.PartialAsync("Partials/_AddProjectModal", Model.AddProject)
+@await Html.PartialAsync("Partials/_EditProjectModal", Model.EditProject)
 
 @section Scripts {
 	<script src="~/js/validate.js"></script>

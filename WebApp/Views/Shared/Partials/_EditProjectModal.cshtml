@@ -1,4 +1,4 @@
-﻿@model WebApp.Models.Project
+﻿@model EditProjectFormModel
 
 @* Tror jag ska ta in Project istället för EditProjectFormModel för att visa ut
 	Vet ej om EditProjectFormModel behövs för POST här? Kan ej ta in två
@@ -10,7 +10,7 @@
 	<div class="alert alert-danger">Model is null!</div>
 }
 
-<div id="editProjectModal" class="modal">
+<div id="editProjectModal-@Model.ProjectId" class="modal">
 	<div class="modal-content">
 
 		<div class="modal-header">
@@ -21,12 +21,12 @@
 			<img src="/images/project-logo.svg" alt="Alternate Text" />
 		</div>
 		<form novalidate method="post" asp-action="EditProject" asp-controller="Projects">
-			<input asp-for="Id" readonly type="hidden" />
+			<input asp-for="@Model.ProjectId" readonly type="hidden" />
 
 			<div class="form-group mb-3">
 				<label asp-for="ProjectName" class="form-label"></label>
 				<div class="field-group">
-					<input asp-for="@Model.Form.ProjectName" class="form-control" value="@Model?.ProjectName" />
+					<input asp-for="@Model.ProjectName" class="form-control" value="@Model?.ProjectName" />
 					<span asp-validation-for="ProjectName" class="text-danger"></span>
 				</div>
 			</div>

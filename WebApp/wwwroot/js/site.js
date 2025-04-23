@@ -4,12 +4,33 @@
     const modalButtons = document.querySelectorAll('[data-modal="true"]')
 
     modalButtons.forEach(button => {
-        button.addEventListener('click', () => {
+        button.addEventListener('click', async () => {
             const modalTarget = button.getAttribute('data-target')
             const modal = document.querySelector(modalTarget)
+            const mode = button.getAttribute('data-mode') // "edit" eller "add"
 
-            if (modal)
-                modal.style.display = 'flex';
+            if (modal) {
+                if (mode === "edit") {
+                    const projectId = button.getAttribute('data-project-id')
+                    if (projectId) {
+                        const response = await fetch(`/Projects/GetProject/${projectId}`)
+                        const data = await response.json()
+
+                        modal.querySelector('[name="ProjectId"]').value = data.projectId
+                        modal.querySelector('[name="ProjectName"]').value = data.projectName
+                        modal.querySelector('[name="ClientName"]').value = data.clientName
+                        modal.querySelector('[name="Description"]').value = data.description
+                        modal.querySelector('[name="StartDate"]').value = data.startDate?.substring(0, 10) || ""
+                        modal.querySelector('[name="EndDate"]').value = data.endDate?.substring(0, 10) || ""
+                        modal.querySelector('[name="Budget"]').value = data.budget ?? ""
+                    }
+                }
+
+
+
+                // Visa modalen
+                modal.style.display = 'flex'
+            }
         })
     })
 
@@ -21,7 +42,7 @@
 
             if (modal) {
 
-                console.log(modal)
+                
                 modal.style.display = 'none'
 
                 //clear formdata

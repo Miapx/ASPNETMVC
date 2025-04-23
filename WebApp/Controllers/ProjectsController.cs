@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Models;
 using WebApp.Services;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers;
 
@@ -9,18 +10,41 @@ namespace WebApp.Controllers;
 // Högerklicka View och Add view (razor empty) - där skrivs razorkoden.
 // Index ska vara login, sen behövs Create account och portalen. 
 
-[Authorize]
+
 public class ProjectsController(ProjectService projectService) : Controller
 {
     private readonly ProjectService _projectService = projectService;
 
-    public IActionResult Projects()
+    public async Task <IActionResult> Projects()
     {
-        var formData = new AddProjectFormModel();
-        var editFormData = new EditProjectFormModel();
+        var vm = new ProjectsViewModel
+        {
+            Projects = await _projectService.GetAllProjectsAsync(),
+            
+            
+        };
 
 
-        return View();
+        return View(vm);
+    }
+
+    public async Task<IActionResult> GetProject(string id)
+    {
+        var project = await _projectService.GetAsync(id);
+        if (project == null) return NotFound();
+
+        var model = new EditProjectFormModel
+        {
+            ProjectId = project.Id,
+            ProjectName = project.ProjectName,
+            ClientName = project.ClientName,
+            Description = project.Description,
+            StartDate = project.StartDate,
+            EndDate = project.EndDate,
+            Budget = project.Budget
+        };
+
+        return Json(model);
     }
 
     [HttpPost]
