@@ -1,8 +1,9 @@
-﻿<div id="moreOption" class="more-modal-sm">
+﻿@model Project
+<div id="moreOption" class="more-modal-sm">
 
 	<div class="more-modal-sm-content">
 		<div class="more-modal-sm-top">
-			<button data-modal="true" data-target="#editProjectModal">
+			<button class="edit-project-btn" data-project-id="@Model.Id" data-modal="true" data-target="#editProjectModal" model="@Model.Form">
 				<img src="~/images/Edit.svg" alt="Alternate Text" />
 				<div>Edit</div>
 			</button>
@@ -12,7 +13,6 @@
 				<img src="/images/Delete.svg" />
 				<div>Delete</div>
 			</button>
-
 		</div>
 	</div>
 </div>

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 public class EditProjectFormModel
 {
-    // Skapa autogenererat Id public int ProjectId { get; set; }
+    public string ProjectId { get; set; } = null!;
 
     [Display(Name = "Project Name", Prompt = "Project Name")]
     [Required(ErrorMessage = "Required")]
@@ -30,6 +30,6 @@ public class EditProjectFormModel
     [Display(Name = "Budget", Prompt = "0")]
     [Required(ErrorMessage = "Required")]
     public decimal Budget { get; set; }
-    //public StatusModel ProjectStatus { get; set; } = null!;
+    public int StatusId { get; set; }
 }
 

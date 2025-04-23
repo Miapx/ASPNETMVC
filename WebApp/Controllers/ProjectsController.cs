@@ -37,7 +37,6 @@ public class ProjectsController(ProjectService projectService) : Controller
             return BadRequest(new { success = false, errors });
         }
 
-        //Skicka data till vår service
         var result = await _projectService.CreateProjectAsync(formData);
         if (result)
         {
@@ -50,8 +49,44 @@ public class ProjectsController(ProjectService projectService) : Controller
     }
 
 
+    //ChatGPT för att hämta projektinfo
+    //Tror jag ska mappa till Project istället för EditProjectFormModel
+    //Och sedan i EditProjectModal ta in en Project istället för EditProjectFormModel
+
+    [HttpGet]
+    public async Task<IActionResult> EditProject(string id)
+    {
+        var project = await _projectService.GetAsync(id);
+
+        if (project == null || project.Status == null)
+        {
+            ViewData["ErrorMessage"] = "Could not find status.";
+            return PartialView("Partials/_EditProjectModal", null); 
+        }
+
+        var model = new Project
+        {
+            Id = project.Id,
+            ProjectName = project.ProjectName,
+            ClientName = project.ClientName,
+            Description = project.Description,
+            StartDate = project.StartDate,
+            EndDate = project.EndDate,
+            Budget = project.Budget,
+            Status = project.Status
+        };
+
+        return PartialView("Partials/_EditProjectModal", model);
+    }
+
+
+    //ChatGPT slut
+
+
+
+
     [HttpPost]
-    public IActionResult EditProject(EditProjectFormModel editFormData)
+    public async Task<IActionResult> EditProject(EditProjectFormModel editFormData)
     {
         if (!ModelState.IsValid)
         {
@@ -64,16 +99,8 @@ public class ProjectsController(ProjectService projectService) : Controller
             return BadRequest(new { success = false, errors });
         }
 
-        //Skicka data till vår service
-        //var result = await _projectService.UpdateProjectAsync(editFormData)
-        //if (result) { return Ok( new { success = true });
-        //else { return Problem("Unable to submit data") }
-        //Ta bort nedan return OK()
-
-        return Ok();
+        var project = await _projectService.EditAsync(editFormData);
+        return Ok(new { success = true });
     }
-
-    //Lägg till för att omdirigera utloggning till förstasidan
-    //IActionResult SignOut() { return RedirectToAction("Index", "Home"}
 }
 

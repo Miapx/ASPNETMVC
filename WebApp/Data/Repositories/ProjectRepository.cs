@@ -9,8 +9,6 @@ public class ProjectRepository(DataContext context)
 {
     private readonly DataContext _context = context;
 
-    //CRUD hämtat från StorageAssignment_2
-    //OBS Hans har lagt till virtual på alla metoder, vet ej varför
     //CREATE 
     public async Task<bool> CreateAsync(ProjectEntity entity)
     {
@@ -31,7 +29,7 @@ public class ProjectRepository(DataContext context)
     //READ
     public async Task<IEnumerable<ProjectEntity>> GetAllAsync
     (
-        //För att sortera, filtrera och inkludera (Tips&Trix backend)
+        //För att sortera, filtrera och inkludera
         bool orderByDescending = false,
         Expression<Func<ProjectEntity, object>>? sortBy = null,
         Expression<Func<ProjectEntity, bool>>? where = null,
@@ -57,17 +55,9 @@ public class ProjectRepository(DataContext context)
         return entities;
     }
 
-
-    //Här la Hans till en till GetAll med TSelect istället för TEntity
-    //men sa aldrig varför eller vad den skulle användas till. Tips&Trix backend 1.30min
-
-
-    //För att hämta ETT projekt, vet ej om det behövs.
-    //Hans la också till filtrering, sortering, inkludering här, vet ej om behövs (Tips&Trix backend 1.30min)
-    public async Task<ProjectEntity?> GetAsync(Expression<Func<ProjectEntity, bool>> expression)
+    public async Task<ProjectEntity?> GetAsync(Expression<Func<ProjectEntity, bool>> predicate)
     {
-        var entity = await _context.Projects.FirstOrDefaultAsync(expression);
-        return entity ?? null!;
+        return await _context.Projects.Include(x => x.Status).FirstOrDefaultAsync(predicate);
     }
 
     //För att se om ett projekt redan finns, vet ej om det behövs

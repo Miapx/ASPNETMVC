@@ -1,4 +1,5 @@
-﻿using WebApp.Data.Entities;
+﻿using Microsoft.SqlServer.Server;
+using WebApp.Data.Entities;
 using WebApp.Data.Repositories;
 using WebApp.Models;
 
@@ -25,11 +26,6 @@ public class ProjectService(ProjectRepository projectRepository, StatusService s
             Budget = formData.Budget
         };
 
-        //Sätter status HUUUUUR ????? Hans sätt:
-        //var status = await _statusService.GetStatusByIdAsync(1);
-        //project.StatusId = status.Id;
-
-        //ChatGPT:
         // Sätt status baserat på start/slutdatum
         var today = DateTime.Today;
 
@@ -42,8 +38,11 @@ public class ProjectService(ProjectRepository projectRepository, StatusService s
 
         // Hämta statusobjektet från databasen
         var status = await _statusService.GetStatusByNameAsync(statusName);
-        project.StatusId = status.Id;
 
+        if (status == null)
+            return false;
+
+        project.StatusId = status.Id;
 
         var result = await _projectRepository.CreateAsync(project);
         return result;
@@ -77,5 +76,59 @@ public class ProjectService(ProjectRepository projectRepository, StatusService s
 
         return result;
         
+    }
+
+    public async Task<Project> GetAsync(string id)
+    {
+        var entity = await _projectRepository.GetAsync(x => x.Id == id);
+
+        if (entity == null || entity.Status == null)
+            return null!;
+
+        return new Project
+        {
+            Id = entity.Id,
+            ProjectName = entity.ProjectName,
+            ClientName = entity.ClientName,
+            Description = entity.Description,
+            StartDate = entity.StartDate,
+            EndDate = entity.EndDate,
+            Budget = entity.Budget,
+            Status = new Status
+            {
+                Id = entity.Status.Id,
+                StatusName = entity.Status.StatusName
+            }
+        };
+    }
+
+    public async Task<bool> EditAsync(EditProjectFormModel formData)
+    {
+        var project = await _projectRepository.GetAsync(x => x.Id == formData.ProjectId);
+        if (project == null)
+            return false;
+
+        project.ProjectName = formData.ProjectName;
+        project.ClientName = formData.ClientName;
+        project.Description = formData.Description;
+        project.StartDate = formData.StartDate;
+        project.EndDate = formData.EndDate;
+        project.Budget = formData.Budget;
+
+        var today = DateTime.Today;
+
+        int statusId;
+
+        if (today >= formData.StartDate && today <= formData.EndDate)
+            statusId = 1;
+        else
+            statusId = 2;
+
+        var status = await _statusService.GetStatusByIdAsync(statusId);
+        formData.StatusId = status.Id;
+
+
+        var result = await _projectRepository.UpdateAsync(project);
+        return result;
     }
 }

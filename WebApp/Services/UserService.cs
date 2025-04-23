@@ -36,15 +36,18 @@ public class UserService(UserManager<AppUser> userManager, SignInManager<AppUser
             return false;
     }
 
-    //Gjort själv, ingen aning om det funkar
     public async Task<UserModel> GetUserAsync(string email)
     {
         var entity = await _userRepository.GetAsync(u => u.Email == email);
+
+        if (entity == null)
+            return null!;
+
         var userModel = new UserModel
         {
             Id = entity.Id,
             FullName = entity.FullName,
-            Email = entity.Email
+            Email = entity.Email!
         };
         return userModel;
     }

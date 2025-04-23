@@ -11,7 +11,6 @@ public class AuthController(UserService userService, SignInManager<AppUser> sign
     private readonly SignInManager<AppUser> _signInManager = signInManager;
 
     [HttpGet]
-    //[Route("signin")]
     public IActionResult SignIn()
     {
         var model = new LoginFormModel();
@@ -20,7 +19,6 @@ public class AuthController(UserService userService, SignInManager<AppUser> sign
     }
 
     [HttpPost]
-    //[Route("signin")]
     public async Task<IActionResult> SignIn(LoginFormModel formData)
     {
         if (ModelState.IsValid)

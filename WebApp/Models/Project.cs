@@ -10,4 +10,7 @@ public class Project
     public DateTime EndDate { get; set; }
     public decimal Budget { get; set; }
     public Status Status { get; set; } = null!;
+
+    //Kanske ???
+    public EditProjectFormModel Form { get; set; } = new();
 }

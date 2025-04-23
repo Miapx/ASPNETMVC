@@ -3,8 +3,6 @@ using WebApp.Models;
 
 namespace WebApp.Services;
 
-//Endast en metod för att hämta en status för att kunna filtrera projektlistan efter skapat osv.
-
 public class StatusService(StatusRepository statusRepository)
 {
     private readonly StatusRepository _statusRepository = statusRepository;
@@ -12,6 +10,10 @@ public class StatusService(StatusRepository statusRepository)
     public async Task<Status> GetStatusByNameAsync(string statusName)
     {
         var result = await _statusRepository.GetAsync(x => x.StatusName == statusName);
+
+        if (result == null)
+            return null!;
+
         var statusModel = new Status
         {
             Id = result.Id,
@@ -23,6 +25,10 @@ public class StatusService(StatusRepository statusRepository)
     public async Task<Status> GetStatusByIdAsync(int statusId)
     {
         var result = await _statusRepository.GetAsync(x => x.Id == statusId);
+
+        if (result == null)
+            return null!;
+
         var statusModel = new Status
         {
             Id = result.Id,

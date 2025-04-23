@@ -27,3 +27,12 @@ För att sätta en annan layout fil Layout = "LoginLayout"
 
 
 @await Html.PartialAsync("Partials/_ProjectList")
+
+
+<div id="editform-container">
+	@await Html.PartialAsync("Partials/_EditProjectModal")
+</div>
+
+@section Scripts {
+	<script src="~/js/validate.js"></script>
+}

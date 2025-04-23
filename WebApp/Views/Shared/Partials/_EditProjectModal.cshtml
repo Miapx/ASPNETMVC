@@ -1,23 +1,32 @@
-﻿@model EditProjectFormModel
+﻿@model WebApp.Models.Project
+
+@* Tror jag ska ta in Project istället för EditProjectFormModel för att visa ut
+	Vet ej om EditProjectFormModel behövs för POST här? Kan ej ta in två
+	Tror inte det då formuläret skickas till POST som tar in en EditProjectFormModel
+*@
+
+@if (Model == null)
+{
+	<div class="alert alert-danger">Model is null!</div>
+}
 
 <div id="editProjectModal" class="modal">
 	<div class="modal-content">
 
 		<div class="modal-header">
 			<h3>Edit Project</h3>
-			<button type="button" class="btn-close" data-close="true"></button>
+			<button type="button" class="btn-close" data-close="true" style="display: flex"></button>
 		</div>
 		<div class="modal-icon">
 			<img src="/images/project-logo.svg" alt="Alternate Text" />
 		</div>
 		<form novalidate method="post" asp-action="EditProject" asp-controller="Projects">
-@* 			LÄGG TILLBAKA NÄR ID FINNS PÅ MODELLEN 
-	<input asp-for="ProjectId" readonly type="hidden" />
- *@
+			<input asp-for="Id" readonly type="hidden" />
+
 			<div class="form-group mb-3">
 				<label asp-for="ProjectName" class="form-label"></label>
 				<div class="field-group">
-					<input asp-for="ProjectName" class="form-control" />
+					<input asp-for="@Model.Form.ProjectName" class="form-control" value="@Model?.ProjectName" />
 					<span asp-validation-for="ProjectName" class="text-danger"></span>
 				</div>
 			</div>
@@ -71,4 +80,4 @@
 
 </div>
 
-@await Html.PartialAsync("_ValidationScript")
+@* @await Html.PartialAsync("_ValidationScript") *@

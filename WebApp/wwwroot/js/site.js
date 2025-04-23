@@ -20,6 +20,8 @@
             const modal = button.closest('.modal')
 
             if (modal) {
+
+                console.log(modal)
                 modal.style.display = 'none'
 
                 //clear formdata
