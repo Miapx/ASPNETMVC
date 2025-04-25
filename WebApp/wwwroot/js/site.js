@@ -9,13 +9,19 @@
             console.log('CLICK: Edit/Add modal button clicked')
 
             const modalTarget = button.getAttribute('data-target')
+            
+
+
             const modal = document.querySelector(modalTarget)
             const mode = button.getAttribute('data-mode') // "edit" eller "add"
+                console.log("Modal found, mode is:", mode)
 
             if (modal) {
+
                 if (mode === "edit") {
                     const projectId = button.getAttribute('data-project-id')
                     if (projectId) {
+                        try { 
                         const response = await fetch(`/Projects/GetProject/${projectId}`)
                         const data = await response.json()
                         console.log(data)
@@ -27,7 +33,11 @@
                         modal.querySelector('[name="Description"]').value = data.description
                         modal.querySelector('[name="StartDate"]').value = data.startDate?.substring(0, 10) || ""
                         modal.querySelector('[name="EndDate"]').value = data.endDate?.substring(0, 10) || ""
-                        modal.querySelector('[name="Budget"]').value = data.budget ?? ""
+                            modal.querySelector('[name="Budget"]').value = data.budget ?? ""
+                        }
+                        catch (err) {
+                            console.log('Error fetching project:', err)
+                        }
                     }
                 }
 
@@ -35,6 +45,8 @@
 
                 // Visa modalen
                 modal.style.display = 'flex'
+
+
             }
         })
     })

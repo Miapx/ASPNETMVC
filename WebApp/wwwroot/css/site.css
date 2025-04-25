@@ -393,9 +393,9 @@ form button {
         background-color: var(--white-300);
     }
 
-    .show {
-        display: flex;
-    }
+.show {
+    display: flex;
+}
 
 .hide {
     display: none;
@@ -559,14 +559,14 @@ button {
     /* ändringar för more-modalen */
     position: relative;
 
-    button
+}
 
-{
+.project-item button {
     background-color: var(--white-100);
     padding-left: 6em;
 }
 
-}
+
 
 .project-item .project-item-top {
     display: flex;
