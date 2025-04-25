@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using WebApp.Data.Contexts;
 using WebApp.Data.Entities;
+using WebApp.Models;
 
 namespace WebApp.Data.Repositories;
 
@@ -84,18 +85,15 @@ public class ProjectRepository(DataContext context)
     }
 
     //DELETE
-    public async Task<bool> DeleteAsync(ProjectEntity entity)
+    public ProjectEntity GetById(string id)
     {
-        try
-        {
-            _context.Remove(entity);
-            await _context.SaveChangesAsync();  
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
+        return _context.Projects.Find(id);
+    }
+
+    public void Delete(ProjectEntity projectEntity)
+    {
+        _context.Projects.Remove(projectEntity);
+        _context.SaveChanges();
     }
 
 

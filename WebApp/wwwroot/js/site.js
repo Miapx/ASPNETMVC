@@ -33,7 +33,7 @@
                         modal.querySelector('[name="Description"]').value = data.description
                         modal.querySelector('[name="StartDate"]').value = data.startDate?.substring(0, 10) || ""
                         modal.querySelector('[name="EndDate"]').value = data.endDate?.substring(0, 10) || ""
-                            modal.querySelector('[name="Budget"]').value = data.budget ?? ""
+                        modal.querySelector('[name="Budget"]').value = data.budget ?? ""
                         }
                         catch (err) {
                             console.log('Error fetching project:', err)
@@ -135,6 +135,32 @@ document.addEventListener('click', function (event) {
     }
 
 })
+
+//delete project knappen
+
+document.querySelectorAll('.delete-btn').forEach(button => {
+    button.addEventListener('click', async () => {
+        const projectId = button.getAttribute('data-project-id');
+
+        const confirmed = confirm("Är du säker på att du vill radera projektet?");
+        if (confirmed) {
+            const response = await fetch(`/Projects/DeleteProject/${projectId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.ok) {
+                alert("Projektet raderades!");
+                location.reload(); // uppdatera sidan
+            } else {
+                alert("Något gick fel vid raderingen.");
+            }
+        }
+    });
+});
+
+
 
 
 

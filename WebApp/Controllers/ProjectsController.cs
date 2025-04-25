@@ -15,13 +15,13 @@ public class ProjectsController(ProjectService projectService) : Controller
 {
     private readonly ProjectService _projectService = projectService;
 
-    public async Task <IActionResult> Projects()
+    public async Task<IActionResult> Projects()
     {
         var vm = new ProjectsViewModel
         {
             Projects = await _projectService.GetAllProjectsAsync(),
-            
-            
+
+
         };
 
 
@@ -68,7 +68,7 @@ public class ProjectsController(ProjectService projectService) : Controller
         }
         else
         {
-            return Problem("Unable to submit data"); 
+            return Problem("Unable to submit data");
         }
     }
 
@@ -85,7 +85,7 @@ public class ProjectsController(ProjectService projectService) : Controller
         if (project == null || project.Status == null)
         {
             ViewData["ErrorMessage"] = "Could not find status.";
-            return PartialView("Partials/_EditProjectModal", null); 
+            return PartialView("Partials/_EditProjectModal", null);
         }
 
         var model = new Project
@@ -126,5 +126,21 @@ public class ProjectsController(ProjectService projectService) : Controller
         var project = await _projectService.EditAsync(editFormData);
         return Ok(new { success = true });
     }
+
+    //DELETE
+
+    [HttpPost]
+    [Route("Projects/DeleteProject/{id}")]
+    public IActionResult DeleteProject(string id)
+    {
+        var success = _projectService.DeleteProject(id);
+        if (success)
+        {
+            return Ok();
+        }
+        return NotFound();
+    }
 }
+
+
 

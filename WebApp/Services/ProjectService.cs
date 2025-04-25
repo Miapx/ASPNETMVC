@@ -1,4 +1,5 @@
-﻿using Microsoft.SqlServer.Server;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.SqlServer.Server;
 using WebApp.Data.Entities;
 using WebApp.Data.Repositories;
 using WebApp.Models;
@@ -165,5 +166,18 @@ public class ProjectService(ProjectRepository projectRepository, StatusService s
     }
 
 
+    //DELETE
+    public bool DeleteProject(string id)
+    {
+        var project = _projectRepository.GetById(id);
+        if (project == null)
+        {
+            return false;
+        }
 
+        _projectRepository.Delete(project);
+        return true;
+    }
 }
+
+
