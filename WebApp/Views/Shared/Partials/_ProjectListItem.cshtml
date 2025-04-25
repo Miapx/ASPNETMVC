@@ -10,8 +10,12 @@
         </div>
         <div>
 @*             @await Html.PartialAsync("Partials/_MoreOptionModal")*@
-			<button data-modal="true" data-target="#moreOption-@Model.Id" class="more-button"><img src="/images/more.svg" alt="">
-				</button>
+@* 			<button data-modal="true" data-target="#moreOption-@Model.Id" class="more-button"><img src="/images/more.svg" alt="">
+				</button> *@
+
+			<button type="button" data-type="dropdown" data-target="#moreOption-@Model.Id" class="more-button">
+				<img src="/images/more.svg" alt="">
+			</button>
 			<div id="moreOption-@Model.Id" class="more-modal-sm">
 					<div class="more-modal-sm-content">
 						<div class="more-modal-sm-top">

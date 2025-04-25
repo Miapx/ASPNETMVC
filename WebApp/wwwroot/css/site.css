@@ -393,6 +393,13 @@ form button {
         background-color: var(--white-300);
     }
 
+    .show {
+        display: flex;
+    }
+
+.hide {
+    display: none;
+}
 
 
     /* links */

@@ -65,16 +65,16 @@
 
 
     //close small modal(user logout)
-    var moreModal = document.getElementById("moreOption");
+    //var moreModal = document.getElementById("moreOption");
     var smallModal = document.getElementById("userInfoModal");
 
     window.onclick = function (e) {
         if (e.target == smallModal) {
             smallModal.style.display = "none";
         }
-        if (e.target == moreModal) {
-            moreModal.style.display = "none";
-        }
+        //if (e.target == moreModal) {
+        //    moreModal.style.display = "none";
+        //}
     }
 
     //var moreModal = document.getElementById("moreOption");
@@ -87,6 +87,42 @@
 
 
 
+
+})
+
+
+//More-knappen som dropdown
+
+const dropdowns = document.querySelectorAll('[data-type="dropdown"]')
+
+document.addEventListener('click', function (event) {
+    let clickedDropdown = null
+
+    dropdowns.forEach(dropdown => {
+        const targetId = dropdown.getAttribute('data-target')
+        const targetElement = document.querySelector(targetId)
+
+        if (dropdown.contains(event.target)) {
+            clickedDropdown = targetElement
+
+            document.querySelectorAll('.show').forEach(openDropdown => {
+                if (openDropdown !== targetElement) {
+                    openDropdown.classList.remove('show')
+                }
+            })
+
+            targetElement.classList.toggle('show')
+
+        }
+    })
+
+    if (!clickedDropdown && !event.target.closest('.show')) {
+        document.querySelectorAll('.show').forEach(openDropdown => {
+            openDropdown.classList.remove('show')
+        })
+    }
+
+})
 
 
 
@@ -151,4 +187,4 @@
         })
     }
 
-})
+

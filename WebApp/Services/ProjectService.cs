@@ -131,4 +131,39 @@ public class ProjectService(ProjectRepository projectRepository, StatusService s
         var result = await _projectRepository.UpdateAsync(project);
         return result;
     }
+
+
+    //För att hämta STARTED
+    public async Task<IEnumerable<Project>> GetAllStartedProjectsAsync()
+    {
+        var entities = await _projectRepository.GetAllAsync
+            (
+            orderByDescending: true,
+            sortBy: x => x.Created,
+            where: null,
+            include => include.Status
+            );
+
+        var result = entities.Select(x => new Project
+        {
+            Id = x.Id,
+            ProjectName = x.ProjectName,
+            ClientName = x.ClientName,
+            Description = x.Description,
+            StartDate = x.StartDate,
+            EndDate = x.EndDate,
+            Budget = x.Budget,
+            Status = new Status
+            {
+                Id = x.Status.Id,
+                StatusName = x.Status.StatusName
+            }
+        });
+
+        return result;
+
+    }
+
+
+
 }
