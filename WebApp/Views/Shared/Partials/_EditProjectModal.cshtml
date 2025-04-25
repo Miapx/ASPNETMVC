@@ -1,10 +1,5 @@
 ﻿@model EditProjectFormModel
 
-@* Tror jag ska ta in Project istället för EditProjectFormModel för att visa ut
-	Vet ej om EditProjectFormModel behövs för POST här? Kan ej ta in två
-	Tror inte det då formuläret skickas till POST som tar in en EditProjectFormModel
-*@
-
 @if (Model == null)
 {
 	<div class="alert alert-danger">Model is null!</div>
@@ -21,12 +16,12 @@
 			<img src="/images/project-logo.svg" alt="Alternate Text" />
 		</div>
 		<form novalidate method="post" asp-action="EditProject" asp-controller="Projects">
-			<input asp-for="@Model.ProjectId" readonly type="hidden" />
+			<input asp-for="ProjectId" readonly type="hidden" />
 
 			<div class="form-group mb-3">
 				<label asp-for="ProjectName" class="form-label"></label>
 				<div class="field-group">
-					<input asp-for="@Model.ProjectName" class="form-control" value="@Model?.ProjectName" />
+					<input asp-for="ProjectName" class="form-control" />
 					<span asp-validation-for="ProjectName" class="text-danger"></span>
 				</div>
 			</div>

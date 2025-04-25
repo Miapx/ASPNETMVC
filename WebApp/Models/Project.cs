@@ -12,5 +12,5 @@ public class Project
     public Status Status { get; set; } = null!;
 
     //Kanske ???
-    public EditProjectFormModel Form { get; set; } = new();
+    //public EditProjectFormModel Form { get; set; } = new();
 }

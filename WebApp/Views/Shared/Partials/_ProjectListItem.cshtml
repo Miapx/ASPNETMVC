@@ -1,17 +1,35 @@
-﻿@model Project
+﻿@using WebApp.ViewModels
+@model Project
 
-<div class="project-item mt-4">
+<div class="project-item mt-4" data-project-id="@Model.Id">
 	<div class="project-item-top">
         <img src="/images/project-logo.svg">
         <div class="mt-1">
             <h6>@Model.ProjectName</h6>
             <p>@Model.ClientName</p>
-  
         </div>
         <div>
-            @await Html.PartialAsync("Partials/_MoreOptionModal")
-            <button data-modal="true" data-target="#moreOption" class="more-button"><img src="/images/more.svg" alt=""></button>
-        </div>
-    </div>
-    <p class="p-4 pt-0">@Model.Description</p>
-</div>
+@*             @await Html.PartialAsync("Partials/_MoreOptionModal")*@
+			<button data-modal="true" data-target="#moreOption-@Model.Id" class="more-button"><img src="/images/more.svg" alt="">
+				</button>
+			<div id="moreOption-@Model.Id" class="more-modal-sm">
+					<div class="more-modal-sm-content">
+						<div class="more-modal-sm-top">
+							<button class="edit-project-btn" data-project-id="@Model.Id" data-modal="true" data-target="#editProjectModal-@Model.Id" data-mode="edit">
+								<img src="~/images/Edit.svg" alt="Alternate Text" />
+								<div>Edit</div>
+							</button>
+						</div>
+						<div class="more-modal-sm-bottom">
+							<button>
+								<img src="/images/Delete.svg" />
+								<div>Delete</div>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<p class="p-4 pt-0">@Model.Description</p>
+	</div>

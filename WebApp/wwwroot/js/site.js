@@ -5,6 +5,9 @@
 
     modalButtons.forEach(button => {
         button.addEventListener('click', async () => {
+
+            console.log('CLICK: Edit/Add modal button clicked')
+
             const modalTarget = button.getAttribute('data-target')
             const modal = document.querySelector(modalTarget)
             const mode = button.getAttribute('data-mode') // "edit" eller "add"
@@ -15,6 +18,8 @@
                     if (projectId) {
                         const response = await fetch(`/Projects/GetProject/${projectId}`)
                         const data = await response.json()
+                        console.log(data)
+
 
                         modal.querySelector('[name="ProjectId"]').value = data.projectId
                         modal.querySelector('[name="ProjectName"]').value = data.projectName
@@ -60,15 +65,25 @@
 
 
     //close small modal(user logout)
-
+    var moreModal = document.getElementById("moreOption");
     var smallModal = document.getElementById("userInfoModal");
 
     window.onclick = function (e) {
         if (e.target == smallModal) {
             smallModal.style.display = "none";
         }
+        if (e.target == moreModal) {
+            moreModal.style.display = "none";
+        }
     }
 
+    //var moreModal = document.getElementById("moreOption");
+
+    //window.onclick = function (e) {
+    //    if (e.target == moreModal) {
+    //        moreModal.style.display = "none";
+    //    }
+    //}
 
 
 
