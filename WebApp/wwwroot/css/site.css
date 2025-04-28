@@ -266,10 +266,70 @@ form button {
 }
 
 
+/* WYSISYG */
+
+.wysiwyg-editor {
+    min-height: 150px;
+    border-radius: .375rem;
+    padding: 0 !important;
+
+    z-index: 0;
+    font-size: 1em !important;
+    font-family: var(--font-standard);
+    font-weight: var(--font-regular);
+    font-style: normal !important;
+    transition: border-color 0.1s ease-in-out;
+    outline: none;
+    border: none !important;
+}
+
+.ql-editor {
+    border: 1px solid var(--border);
+    border-radius: .375rem;
+    min-height: 150px;
+    font-family: var(--font-standard) !important;
+    font-style: normal !important;
+    transition: border-color 0.1s ease-in-out;
+
+    &:focus {
+                border: 3px solid var(--blue-accent); 
+                border-radius: .375rem;
+           }
+
+&ql-blank::before {
+    color: var(--gray-200);
+    font-size: .9em;
+    font-style: normal !important;
+    font-weight: 400;
+}
+}
+
+.wysiwyg-toolbar {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-top: 0rem !important;
+    border: none !important;
+    border-top: 1px solid var(--border) !important;
+    border-radius: 0;
+    color: red;
+}
+
+.field-group {
+    position: relative;
+}
+
+.ql-formats {
+    display: flex;
+
+}
+
+
+
 
 
 /* small modals (logout and edit/delete projects */
-
 .modal-sm {
     display: none;
     position: fixed;

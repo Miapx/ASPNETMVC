@@ -61,6 +61,8 @@ public class ProjectsController(ProjectService projectService) : Controller
             return BadRequest(new { success = false, errors });
         }
 
+        ViewBag.Description = formData.Description;
+
         var result = await _projectService.CreateProjectAsync(formData);
         if (result)
         {

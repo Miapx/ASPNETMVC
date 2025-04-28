@@ -34,13 +34,40 @@
 				</div>
 			</div>
 
+
+
+
 			<div class="form-group mb-3">
 				<label asp-for="Description" class="form-label"></label>
-				<div class="field-group">
-					<input asp-for="Description" class="form-control pb-5" />
+				<div class="field-group wysiwyg">
+					<textarea asp-for="Description" class="form-control hide" id="edit-project-description"></textarea> 
+					<div id="edit-project-description-wysiwyg-editor" class="wysiwyg-editor"></div>
+					<div id="edit-project-description-wysiwyg-toolbar" class="wysiwyg-toolbar">
+						<span class="ql-formats">
+							<button class="ql-bold"></button>
+							<button class="ql-italic"></button>
+							<button class="ql-underline"></button>
+						</span>
+						<span class="ql-formats">
+							<button class="ql-align" value=""></button>
+							<button class="ql-align" value="center"></button>
+							<button class="ql-align" value="right"></button>
+						</span>
+						<span class="ql-formats">
+							<button class="ql-list" value="bullet"></button>
+							<button class="ql-list" value="ordered"></button>
+						</span>
+						<span class="ql-formats">
+							<button class="ql-link"></button>
+						</span>
+					</div>
 					<span asp-validation-for="Description" class="text-danger"></span>
 				</div>
 			</div>
+
+
+
+
 
 			<div class="d-flex justify-content-between">
 				<div class="form-group mb-3">
