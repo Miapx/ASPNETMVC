@@ -320,9 +320,12 @@ form button {
     position: relative;
 }
 
+.form-group {
+    margin-bottom: 2rem;
+}
+
 .ql-formats {
     display: flex;
-
 }
 
 
@@ -342,7 +345,7 @@ form button {
 .modal-sm-content {
     flex-direction: column;
     position: absolute;
-    width: 200px;
+    max-width: 500px;
     background-color: var(--white-100);
     top: 50px;
     right: 110px;
@@ -690,6 +693,8 @@ p {
     font-size: .8em;
     color: var(--red);
     margin: 0;
+    display: inline;
+    position: absolute;
 }
 
 .signuporin {

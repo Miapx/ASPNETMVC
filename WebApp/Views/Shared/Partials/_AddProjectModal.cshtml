@@ -13,7 +13,7 @@
 		</div>
 		<form novalidate method="post" asp-action="AddProject" asp-controller="Projects">
 
-			<div class="form-group mb-3">
+			<div class="form-group ">
 				<label asp-for="ProjectName" class="form-label"></label>
 				<div class="field-group">
 					<input asp-for="ProjectName" class="form-control" />
@@ -21,7 +21,7 @@
 				</div>
 			</div>
 
-			<div class="form-group mb-3">
+			<div class="form-group">
 				<label asp-for="ClientName" class="form-label"></label>
 				<div class="field-group">
 					<input asp-for="ClientName" class="form-control" />
@@ -33,7 +33,7 @@
 
 
 
-			<div class="form-group mb-3">
+			<div class="form-group">
 				<label asp-for="Description" class="form-label"></label>
 				<div class="field-group wysiwyg">
 @* 					Ändrar från input til textarea *@					
@@ -70,7 +70,7 @@
 
 
 			<div class="d-flex justify-content-between"> 
-				<div class="form-group mb-3">
+				<div class="form-group">
 					<label asp-for="StartDate" class="form-label"></label>
 					<div class="field-group datewidth">
 						<input asp-for="StartDate" type="date" class="p-2 form-control" />
