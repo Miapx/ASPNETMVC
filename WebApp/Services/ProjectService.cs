@@ -118,21 +118,25 @@ public class ProjectService(ProjectRepository projectRepository, StatusService s
         project.Budget = formData.Budget;
 
         var today = DateTime.Today;
+        var start = formData.StartDate.Date;
+        var end = formData.EndDate.Date;
 
         int statusId;
 
-        if (today >= formData.StartDate && today <= formData.EndDate)
-            statusId = 1;
+        if (today >= start && today <= end)
+            statusId = 1; // Started
+        else if (today < start)
+            statusId = 0; // Planned
         else
-            statusId = 2;
+            statusId = 2; // Completed
 
         var status = await _statusService.GetStatusByIdAsync(statusId);
-        formData.StatusId = status.Id;
-
+        project.StatusId = status.Id;
 
         var result = await _projectRepository.UpdateAsync(project);
         return result;
     }
+
 
 
     //För att hämta STARTED - ChatGPT
