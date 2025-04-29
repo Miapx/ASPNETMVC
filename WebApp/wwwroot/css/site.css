@@ -313,7 +313,7 @@ form button {
     border: none !important;
     border-top: 1px solid var(--border) !important;
     border-radius: 0;
-    color: red;
+     
 }
 
 .field-group {
@@ -396,6 +396,7 @@ form button {
     border-radius: 1rem;
     box-shadow: 0 4px 4px 3px #20212309;
     right: 5px;
+    z-index: 5;
 }
 
     .more-modal-sm-content .more-modal-sm-top {
@@ -672,15 +673,22 @@ p {
 }
 
 .project-item-description {
-    height: 140px;
-    overflow: hidden;
-    display: -webkit-box;
+    max-height: 10px;
+    overflow: hidden !important;
+    display: -webkit-box !important;
     padding: 0 1rem 1rem 1rem;
-    -webkit-line-clamp: 6;
-    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6 !important;
+    -webkit-box-orient: vertical !important;
+    border: none;
+    
 }
 
-
+.ql-editor {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 6 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden;
+}
 
 
 
