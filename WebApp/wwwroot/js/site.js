@@ -186,5 +186,4 @@
             span.classList.remove('field-validation-error', 'text-danger');
         });
     }
-
 });

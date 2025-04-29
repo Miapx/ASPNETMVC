@@ -11,9 +11,11 @@ namespace WebApp.Controllers;
 // Index ska vara login, sen behövs Create account och portalen. 
 
 
-public class ProjectsController(ProjectService projectService) : Controller
+public class ProjectsController(ProjectService projectService, StatusService statusService) : Controller
 {
     private readonly ProjectService _projectService = projectService;
+    private readonly StatusService _statusService = statusService;
+
 
     public async Task<IActionResult> Projects()
     {
@@ -141,6 +143,34 @@ public class ProjectsController(ProjectService projectService) : Controller
             return Ok();
         }
         return NotFound();
+    }
+
+
+    //För att filtrera på status - ChatGPT
+
+    public async Task<IActionResult> ProjectsByStatus(string statusName)
+    {
+
+        var status = await _statusService.GetStatusByNameAsync(statusName);
+
+
+        if (status == null)
+        {
+            // Hantera att statusen inte finns, t.ex. visa felmeddelande eller skicka tom lista
+            TempData["ErrorMessage"] = $"Status '{statusName}' not found.";
+            return RedirectToAction("Projects"); // Eller visa en tom vy, valfritt
+        }
+
+
+
+        var statusId = status.Id;
+
+        var vm = new ProjectsViewModel
+        {
+            Projects = await _projectService.GetProjectsByStatusAsync(statusId)
+        };
+
+        return View("Projects", vm); // Återanvänd den befintliga vyn
     }
 }
 

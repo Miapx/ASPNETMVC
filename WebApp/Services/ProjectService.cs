@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.SqlServer.Server;
 using WebApp.Data.Entities;
 using WebApp.Data.Repositories;
@@ -134,37 +135,38 @@ public class ProjectService(ProjectRepository projectRepository, StatusService s
     }
 
 
-    //För att hämta STARTED
-    public async Task<IEnumerable<Project>> GetAllStartedProjectsAsync()
+    //För att hämta STARTED - ChatGPT
+
+    public async Task<List<Project>> GetProjectsByStatusAsync(int status)
     {
-        var entities = await _projectRepository.GetAllAsync
-            (
+        var projectEntities = await _projectRepository.GetAllAsync(
             orderByDescending: true,
             sortBy: x => x.Created,
-            where: null,
+            where: pe => pe.Status.Id == status, // Filtrera baserat på status
             include => include.Status
             );
 
-        var result = entities.Select(x => new Project
+        return projectEntities.Select(pe => new Project
         {
-            Id = x.Id,
-            ProjectName = x.ProjectName,
-            ClientName = x.ClientName,
-            Description = x.Description,
-            StartDate = x.StartDate,
-            EndDate = x.EndDate,
-            Budget = x.Budget,
+            Id = pe.Id,
+            ProjectName = pe.ProjectName,
+            ClientName = pe.ClientName,
+            Description = pe.Description,
+            StartDate = pe.StartDate,
+            EndDate = pe.EndDate,
+            Budget = pe.Budget,
             Status = new Status
             {
-                Id = x.Status.Id,
-                StatusName = x.Status.StatusName
+                Id = pe.Status.Id,
+                StatusName = pe.Status.StatusName
             }
-        });
+        }).ToList();
 
-        return result;
 
     }
 
+
+    //ChatGpt slut
 
     //DELETE
     public bool DeleteProject(string id)

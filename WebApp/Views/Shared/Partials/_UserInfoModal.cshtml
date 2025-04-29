@@ -1,8 +1,15 @@
-﻿<div id="userInfoModal" class="modal-sm">
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<AppUser> userManager
+
+@{
+	var userName = User.Identity.IsAuthenticated ? User.Identity.Name : "User here";
+}
+
+<div id="userInfoModal" class="modal-sm">
 	<div class="modal-sm-content">
 		<div class="modal-sm-top">
 		<div><img src="~/images/avatar.svg" alt="Alternate Text" /></div>
-		<div>User here</div>
+		<div>@userName</div>
 	</div>
 		<div class="modal-sm-bottom">
 			<button> <a asp-action="SignOut" asp-controller="Auth"><img src="/images/Logout.svg" />Logout</a></button>

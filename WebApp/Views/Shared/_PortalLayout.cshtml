@@ -40,23 +40,35 @@
                 <h2>Projects</h2>
                 <button class="btn btn-blue" data-modal="true" data-target="#addProjectModal"><i class="fa-solid fa-plus"></i> Add Project</button>
             </header>
+            @* Allt ändrat för status-listorna förutom dessa knappar *@
+           @*  <div class="status-menu">
+                <button onclick="filterProjects('ALL')">ALL</button>
+                <button onclick="filterProjects('Started')">Started</button>
+                <button onclick="filterProjects('Completed')">Completed</button>
+            </div> *@
 
             <div class="status-menu">
-                <button>ALL []</button>
-                <button>STARTED []</button>
-                <button>COMPLETED []</button>
+                <button onclick="location.href='@Url.Action("ProjectsByStatus", new { statusName = "All" })'">All</button>
+                <button onclick="location.href='@Url.Action("ProjectsByStatus", new { statusName = "Started" })'">Started</button>
+                <button onclick="location.href='@Url.Action("ProjectsByStatus", new { statusName = "Completed" })'">Completed</button>
             </div>
 
             @RenderBody()
         </div>
     </div>
 
-@*     <script src="~/lib/jquery/dist/jquery.min.js"></script>
- *@    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+@*     <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+    <script>
+        function filterProjects(status) {
+            window.location.href = `/Projects/ProjectsByStatus?status=${status}`;
+        }
+    </script>
 
     <script src="~/js/validate.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
