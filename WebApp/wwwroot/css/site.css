@@ -392,6 +392,7 @@ form button {
     background-color: var(--white-100);
     border-radius: 1rem;
     box-shadow: 0 4px 4px 3px #20212309;
+    right: 5px;
 }
 
     .more-modal-sm-content .more-modal-sm-top {
@@ -584,7 +585,8 @@ button {
 .project-items-list {
     display: grid;
     grid-template-columns: auto auto auto auto;
-    gap: 0;
+    gap: 1rem;
+    margin-top: 2rem;
 }
 
 @media (max-width: 1800px) {
@@ -610,20 +612,29 @@ button {
 
 .project-item {
     background-color: var(--white-100);
-    max-width: 350px;
+    width: 350px;
     height: 276px;
+    overflow: hidden;
     box-shadow: 0 5px 8px 2px rgba(0, 0, 0, 0.049);
     border-radius: 1rem;
     border-color: var(--white-100);
-    
     /* ändringar för more-modalen */
     position: relative;
+
+    word-wrap: break-word;
+    
+    p
+{
+    word-wrap: break-word;
+    max-width: 300px;
+    text-overflow: ellipsis;
+}
+
 
 }
 
 .project-item button {
     background-color: var(--white-100);
-    padding-left: 6em;
 }
 
 
@@ -633,20 +644,47 @@ button {
     gap: 1em;
     padding: 1em;
     align-items: center;
+    width: 350px;
+    height: 120px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.project-name-and-client {
+    width: 300px;
+    overflow: hidden;
+
+    h6
+{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+}
+
+.project-item-description {
+    height: 140px;
+    overflow: hidden;
+    display: -webkit-box;
+    padding: 0 1rem 1rem 1rem;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
 }
 
 
+
+
+
+
+
 /* sections */
-
-
-
 /* views/pages */
-
-
-
-
-
-
 /* validation */
 .text-danger {
     font-size: .8em;

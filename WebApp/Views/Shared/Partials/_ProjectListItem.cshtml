@@ -1,10 +1,10 @@
 ﻿@using WebApp.ViewModels
 @model Project
 
-<div class="project-item mt-4" data-project-id="@Model.Id">
+<div class="project-item" data-project-id="@Model.Id">
 	<div class="project-item-top">
         <img src="/images/project-logo.svg">
-        <div class="mt-1">
+        <div class="project-name-and-client">
             <h6>@Model.ProjectName</h6>
             <p>@Model.ClientName</p>
         </div>
@@ -35,6 +35,6 @@
 			</div>
 		</div>
 
-		<div class="p-4 pt-0">@Html.Raw(Model.Description)</div>
+		<div class="project-item-description">@Html.Raw(Model.Description)</div>
 @* 	Html.Raw(ViewBag.Description)
  *@	</div>
