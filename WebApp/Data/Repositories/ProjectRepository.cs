@@ -26,7 +26,6 @@ public class ProjectRepository(DataContext context)
         }
     }
 
-
     //READ
     public async Task<IEnumerable<ProjectEntity>> GetAllAsync
     (
@@ -61,14 +60,6 @@ public class ProjectRepository(DataContext context)
         return await _context.Projects.Include(x => x.Status).FirstOrDefaultAsync(predicate);
     }
 
-    //För att se om ett projekt redan finns, vet ej om det behövs
-    //public async Task<bool> ExistsAsync(Expression<Func<ProjectEntity, bool>> expression)
-    //{
-    //    var exists = await _context.Projects.AnyAsync(expression);
-    //    return exists;
-    //}
-
-
     //UPDATE
     public async Task<bool> UpdateAsync(ProjectEntity entity)
     {
@@ -95,6 +86,4 @@ public class ProjectRepository(DataContext context)
         _context.Projects.Remove(projectEntity);
         _context.SaveChanges();
     }
-
-
 }

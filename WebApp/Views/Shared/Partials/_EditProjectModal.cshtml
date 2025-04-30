@@ -1,10 +1,5 @@
 ﻿@model EditProjectFormModel
 
-@* @if (Model == null)
-{
-	<div class="alert alert-danger">Model is null!</div>
-} *@
-
 <div id="editProjectModal" class="modal">
 	<div class="modal-content">
 
@@ -15,6 +10,7 @@
 		<div class="modal-icon">
 			<img src="/images/project-logo.svg" alt="Alternate Text" />
 		</div>
+
 		<form novalidate method="post" asp-action="EditProject" asp-controller="Projects">
 			<input asp-for="ProjectId" readonly type="hidden" />
 
@@ -33,9 +29,6 @@
 					<span asp-validation-for="ClientName" class="text-danger"></span>
 				</div>
 			</div>
-
-
-
 
 			<div class="form-group">
 				<label asp-for="Description" class="form-label"></label>
@@ -65,10 +58,6 @@
 				</div>
 			</div>
 
-
-
-
-
 			<div class="d-flex justify-content-between">
 				<div class="form-group mb-3">
 					<label asp-for="StartDate" class="form-label"></label>
@@ -97,9 +86,5 @@
 
 			<button type="submit" class="btn btn-blue">Save</button>
 		</form>
-
 	</div>
-
 </div>
-
-@* @await Html.PartialAsync("_ValidationScript") *@

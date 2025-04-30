@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.SqlServer.Server;
-using WebApp.Data.Entities;
+﻿using WebApp.Data.Entities;
 using WebApp.Data.Repositories;
 using WebApp.Models;
 
@@ -28,9 +25,7 @@ public class ProjectService(ProjectRepository projectRepository, StatusService s
             Budget = formData.Budget
         };
 
-        // Sätt status baserat på start/slutdatum
         var today = DateTime.Today;
-
         string statusName;
 
         if (today >= formData.StartDate && today <= formData.EndDate)
@@ -38,9 +33,7 @@ public class ProjectService(ProjectRepository projectRepository, StatusService s
         else
             statusName = "Completed";
 
-        // Hämta statusobjektet från databasen
         var status = await _statusService.GetStatusByNameAsync(statusName);
-
         if (status == null)
             return false;
 
@@ -77,7 +70,6 @@ public class ProjectService(ProjectRepository projectRepository, StatusService s
         });
 
         return result;
-        
     }
 
     public async Task<Project> GetAsync(string id)
@@ -125,8 +117,7 @@ public class ProjectService(ProjectRepository projectRepository, StatusService s
 
         if (today >= start && today <= end)
             statusId = 1; // Started
-        else if (today < start)
-            statusId = 0; // Planned
+
         else
             statusId = 2; // Completed
 
@@ -137,16 +128,13 @@ public class ProjectService(ProjectRepository projectRepository, StatusService s
         return result;
     }
 
-
-
-    //För att hämta STARTED - ChatGPT
-
+    //För att hämta STARTED 
     public async Task<List<Project>> GetProjectsByStatusAsync(int status)
     {
         var projectEntities = await _projectRepository.GetAllAsync(
             orderByDescending: true,
             sortBy: x => x.Created,
-            where: pe => pe.Status.Id == status, // Filtrera baserat på status
+            where: pe => pe.Status.Id == status, 
             include => include.Status
             );
 
@@ -165,12 +153,7 @@ public class ProjectService(ProjectRepository projectRepository, StatusService s
                 StatusName = pe.Status.StatusName
             }
         }).ToList();
-
-
     }
-
-
-    //ChatGpt slut
 
     //DELETE
     public bool DeleteProject(string id)
@@ -185,5 +168,3 @@ public class ProjectService(ProjectRepository projectRepository, StatusService s
         return true;
     }
 }
-
-

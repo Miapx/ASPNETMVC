@@ -1,6 +1,6 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
 
-    // === OPEN MODAL via Event Delegation ===
+    // Open modal
     document.addEventListener('click', async (event) => {
         const button = event.target.closest('[data-modal="true"]');
         if (!button) return;
@@ -35,12 +35,11 @@
                 }
             }
 
-            // Visa modalen
             modal.style.display = 'flex';
         }
     });
 
-    // === CLOSE Modal ===
+    // Close modal
     document.addEventListener('click', (event) => {
         const button = event.target.closest('[data-close="true"]');
         if (!button) return;
@@ -51,7 +50,7 @@
         }
     });
 
-    // === Close User Info Modal by clicking outside ===
+    // Close User Info Modal 
     const smallModal = document.getElementById("userInfoModal");
     window.addEventListener('click', function (e) {
         if (e.target === smallModal) {
@@ -59,7 +58,7 @@
         }
     });
 
-    // === HANDLE Dropdowns ===
+    // Dropdowns
     const dropdowns = document.querySelectorAll('[data-type="dropdown"]');
     document.addEventListener('click', function (event) {
         let clickedDropdown = null;
@@ -88,7 +87,7 @@
         }
     });
 
-    // === DELETE PROJECT BUTTON ===
+    // DeleteProject
     document.addEventListener('click', async (event) => {
         const button = event.target.closest('.delete-btn');
         if (!button) return;
@@ -113,7 +112,7 @@
         }
     });
 
-    // === WYSIWYG Add Project ===
+    // WYSIWYG AddProject
     const addProjectDescriptionTextArea = document.getElementById('add-project-description');
     const addProjectDescriptionQuill = new Quill('#add-project-description-wysiwyg-editor', {
         modules: { syntax: true, toolbar: '#add-project-description-wysiwyg-toolbar' },
@@ -124,18 +123,16 @@
         addProjectDescriptionTextArea.value = addProjectDescriptionQuill.root.innerHTML;
     });
 
-    // === WYSIWYG Edit Project ===
+    // WYSIWYG EditProject
     const editProjectDescriptionEditor = new Quill('#edit-project-description-wysiwyg-editor', {
         theme: 'snow',
         modules: { toolbar: '#edit-project-description-wysiwyg-toolbar' }
     });
 
 
-    //ChatGPT för att begränsa inmatning i edit
-
+    //ChatGPT to limit lines and characters in desciption field
     const MAX_DESCRIPTION_LINES = 3;
 
-    // === WYSIWYG Edit Project – begränsa rader ===
     editProjectDescriptionEditor.on('text-change', function (delta, oldDelta, source) {
         const lines = editProjectDescriptionEditor.getLines();
 
@@ -154,22 +151,12 @@
         }
     });
 
-
-    //ChatGPT slut
-
-
-
-    // === Copy WYSIWYG content to hidden textarea on submit ===
     const editProjectForm = document.querySelector('#editProjectModal form');
     editProjectForm.addEventListener('submit', function (e) {
         const hiddenInput = document.querySelector('#edit-project-description');
         hiddenInput.value = editProjectDescriptionEditor.root.innerHTML;
     });
 
-
-    // ChatGPT för att begränsa antal tecken i description på add
-
-    // === WYSIWYG Add Project – begränsa rader ===
     addProjectDescriptionQuill.on('text-change', function (delta, oldDelta, source) {
         const lines = addProjectDescriptionQuill.getLines();
 
@@ -188,29 +175,15 @@
     addProjectDescriptionQuill.on('text-change', function (delta, oldDelta, source) {
         const text = addProjectDescriptionQuill.getText();
 
-        // Om texten överskrider maxlängd (Quill lägger till \n på slutet, så vi justerar för det)
         if (text.trim().length > MAX_DESCRIPTION_LENGTH) {
             addProjectDescriptionQuill.deleteText(MAX_DESCRIPTION_LENGTH, text.length);
         }
 
         addProjectDescriptionTextArea.value = addProjectDescriptionQuill.root.innerHTML;
     });
+    //End of ChatGPT
 
-
-    //ChatGPT slut
-
-
-
-
-
-
-
-
-    //Slut ChatGPT
-
-
-
-    // === HANDLE All Form Submits ===
+    // Forms
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
         form.addEventListener('submit', async (e) => {

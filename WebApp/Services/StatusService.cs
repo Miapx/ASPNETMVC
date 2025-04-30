@@ -6,7 +6,6 @@ namespace WebApp.Services;
 public class StatusService(StatusRepository statusRepository)
 {
     private readonly StatusRepository _statusRepository = statusRepository;
-
     public async Task<Status> GetStatusByNameAsync(string statusName)
     {
         var result = await _statusRepository.GetAsync(x => x.StatusName == statusName);

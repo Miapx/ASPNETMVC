@@ -51,5 +51,4 @@ public class UserService(UserManager<AppUser> userManager, SignInManager<AppUser
         };
         return userModel;
     }
-
 }

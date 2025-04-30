@@ -9,10 +9,6 @@
             <p>@Model.ClientName</p>
         </div>
         <div>
-@*             @await Html.PartialAsync("Partials/_MoreOptionModal")*@
-@* 			<button data-modal="true" data-target="#moreOption-@Model.Id" class="more-button"><img src="/images/more.svg" alt="">
-				</button> *@
-
 			<button type="button" data-type="dropdown" data-target="#moreOption-@Model.Id" class="more-button">
 				<img src="/images/more.svg" alt="">
 			</button>
@@ -25,7 +21,7 @@
 							</button>
 						</div>
 						<div class="more-modal-sm-bottom">
-						<button class="delete-btn" data-project-id="@Model.Id">
+							<button class="delete-btn" data-project-id="@Model.Id">
 								<img src="/images/Delete.svg" />
 								<div>Delete</div>
 							</button>
@@ -34,7 +30,5 @@
 				</div>
 			</div>
 		</div>
-
 		<div class="project-item-description ql-editor">@Html.Raw(Model.Description)</div>
-@* 	Html.Raw(ViewBag.Description)
- *@	</div>
+	</div>

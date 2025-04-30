@@ -4,7 +4,6 @@ using WebApp.Models;
 using WebApp.Services;
 
 namespace WebApp.Controllers;
-
 public class AuthController(UserService userService, SignInManager<AppUser> signInManager) : Controller
 {
     private readonly UserService _userService = userService;
@@ -14,7 +13,6 @@ public class AuthController(UserService userService, SignInManager<AppUser> sign
     public IActionResult SignIn()
     {
         var model = new LoginFormModel();
-
         return View();
     }
 
@@ -62,7 +60,6 @@ public class AuthController(UserService userService, SignInManager<AppUser> sign
         ModelState.AddModelError("NotCreated", "User was not created");
         return View(formData);
     }
-
     public new async Task<IActionResult> SignOut()
     {
         await _signInManager.SignOutAsync();

@@ -9,7 +9,6 @@
 	<div class="temp">
 		<h2>@ViewData["Title"]</h2>
 
-		@* 		Lagt till asp-controller här *@
 		<form method="post" asp-controller="Auth" asp-action="signup" novalidate>
 			<div class="mb-3">
 				<label asp-for="FullName" class="form-label"></label>
@@ -21,21 +20,18 @@
 				<label asp-for="Email" class="form-label"></label>
 				<input asp-for="Email" class="form-control">
 				<span asp-validation-for="Email" class="text-danger"></span>
-
 			</div>
 
 			<div class="mb-3">
 				<label asp-for="Password" class="form-label"></label>
 				<input asp-for="Password" class="form-control">
 				<span asp-validation-for="Password" class="text-danger"></span>
-
 			</div>
 
 			<div class="mb-3">
 				<label asp-for="ConfirmPassword" class="form-label"></label>
 				<input asp-for="ConfirmPassword" class="form-control">
 				<span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-
 			</div>
 
 			<div class="accept-tc">
@@ -43,9 +39,7 @@
 			</div>
 			<div> <span asp-validation-for="AcceptTC" class="text-danger"></span></div>
 
-
 			<button type="submit" class="btn btn-blue">Submit</button>
-
 		</form>
 
 		<p class="signuporin">Already have an account? <a asp-action="signin" asp-controller="Auth">Log In</a></p>

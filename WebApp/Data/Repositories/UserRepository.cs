@@ -6,7 +6,6 @@ using WebApp.Models;
 
 namespace WebApp.Data.Repositories;
 
-//Tror att jag endast behöver Get här för att hitta FullName till notismodalen
 public class UserRepository(DataContext context)
 {
     private readonly DataContext _context = context;

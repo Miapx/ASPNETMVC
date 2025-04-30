@@ -26,7 +26,6 @@ public class SignUpFormModel
     [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
     [DataType(DataType.Password)]
     public string ConfirmPassword { get; set; } = null!;
-
     
     [Range(typeof(bool), "true", "true", ErrorMessage = "Required") ]
     public bool AcceptTC { get; set; } = false;

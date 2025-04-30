@@ -6,12 +6,8 @@ using WebApp.Data.Repositories;
 using WebApp.Models;
 using WebApp.Services;
 
-// Buildern gör att vi kan registrera services
 var builder = WebApplication.CreateBuilder(args);
-
-//Registrerar DataContext
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("LocalDb")));
-
 builder.Services.AddIdentity<AppUser, IdentityRole>(x =>
 {
     x.Password.RequiredLength = 8;
@@ -30,24 +26,18 @@ builder.Services.ConfigureApplicationCookie(x =>
     x.SlidingExpiration = true;
 });
 
-//Lägg till repositories
 builder.Services.AddScoped<ProjectRepository>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<StatusRepository>();
 
-
-// Lägg till services här
-// builder.Services.AddScoped/Singleton/Transient();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<ProjectService>();
 builder.Services.AddScoped<StatusService>();
 
-
 builder.Services.AddControllersWithViews();
-
 var app = builder.Build();
 
-//ChatGPT för Statusarna
+//ChatGPT for status
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<DataContext>();
@@ -58,31 +48,18 @@ using (var scope = app.Services.CreateScope())
     // Seedar standardstatusar
     DbSeeder.SeedStatuses(context);
 }
+//End of ChatGPT
 
-
-// Tvingar webbläsaren att bara använda https
 app.UseHsts();
-
-// Omdirigerar alla sidor från http till https
 app.UseHttpsRedirection();
-// Möjliggör routing
 app.UseRouting();
-
-//Tillagt på Hans begäran i Tips&Trix backend
 app.UseAuthentication();
-
-// Skyddar olika sidor som bara ska visas för inloggade
-// Använd autorize på sådana sidor
 app.UseAuthorization();
-
-// Hämtar alla statiska resurser (css, bilder, jquery)
 app.MapStaticAssets();
 
-// Default route - vart ska förstasidan vara
 app.MapControllerRoute(
     name: "default",
     pattern: "/{controller=Auth}/{action=SignIn}/{id?}")
     .WithStaticAssets();
-
-// Kör appen   
+ 
 app.Run();

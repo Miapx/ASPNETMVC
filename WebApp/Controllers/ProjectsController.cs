@@ -6,26 +6,18 @@ using WebApp.ViewModels;
 
 namespace WebApp.Controllers;
 
-// Lägg till alla sidor/endpoints/actions här (eller gör ny controller) 
-// Högerklicka View och Add view (razor empty) - där skrivs razorkoden.
-// Index ska vara login, sen behövs Create account och portalen. 
-
-
+[Authorize]
 public class ProjectsController(ProjectService projectService, StatusService statusService) : Controller
 {
     private readonly ProjectService _projectService = projectService;
     private readonly StatusService _statusService = statusService;
-
 
     public async Task<IActionResult> Projects()
     {
         var vm = new ProjectsViewModel
         {
             Projects = await _projectService.GetAllProjectsAsync(),
-
-
         };
-
 
         return View(vm);
     }
@@ -76,11 +68,6 @@ public class ProjectsController(ProjectService projectService, StatusService sta
         }
     }
 
-
-    //ChatGPT för att hämta projektinfo
-    //Tror jag ska mappa till Project istället för EditProjectFormModel
-    //Och sedan i EditProjectModal ta in en Project istället för EditProjectFormModel
-
     [HttpGet]
     public async Task<IActionResult> EditProject(string id)
     {
@@ -106,12 +93,6 @@ public class ProjectsController(ProjectService projectService, StatusService sta
 
         return PartialView("Partials/_EditProjectModal", model);
     }
-
-
-    //ChatGPT slut
-
-
-
 
     [HttpPost]
     public async Task<IActionResult> EditProject(EditProjectFormModel editFormData)
@@ -145,23 +126,15 @@ public class ProjectsController(ProjectService projectService, StatusService sta
         return NotFound();
     }
 
-
-    //För att filtrera på status - ChatGPT
-
+    //För att filtrera på status
     public async Task<IActionResult> ProjectsByStatus(string statusName)
     {
-
         var status = await _statusService.GetStatusByNameAsync(statusName);
-
-
         if (status == null)
         {
-            // Hantera att statusen inte finns, t.ex. visa felmeddelande eller skicka tom lista
             TempData["ErrorMessage"] = $"Status '{statusName}' not found.";
-            return RedirectToAction("Projects"); // Eller visa en tom vy, valfritt
+            return RedirectToAction("Projects"); 
         }
-
-
 
         var statusId = status.Id;
 
@@ -170,7 +143,7 @@ public class ProjectsController(ProjectService projectService, StatusService sta
             Projects = await _projectService.GetProjectsByStatusAsync(statusId)
         };
 
-        return View("Projects", vm); // Återanvänd den befintliga vyn
+        return View("Projects", vm); 
     }
 }
 
