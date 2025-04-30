@@ -130,12 +130,85 @@
         modules: { toolbar: '#edit-project-description-wysiwyg-toolbar' }
     });
 
+
+    //ChatGPT för att begränsa inmatning i edit
+
+    const MAX_DESCRIPTION_LINES = 3;
+
+    // === WYSIWYG Edit Project – begränsa rader ===
+    editProjectDescriptionEditor.on('text-change', function (delta, oldDelta, source) {
+        const lines = editProjectDescriptionEditor.getLines();
+
+        if (lines.length > MAX_DESCRIPTION_LINES) {
+            const lastLine = lines[MAX_DESCRIPTION_LINES];
+            const lastLineIndex = editProjectDescriptionEditor.getIndex(lastLine);
+            editProjectDescriptionEditor.deleteText(lastLineIndex - 1, lastLine.length() + 1);
+        }
+    });
+
+    editProjectDescriptionEditor.on('text-change', function (delta, oldDelta, source) {
+        const text = editProjectDescriptionEditor.getText();
+
+        if (text.trim().length > MAX_DESCRIPTION_LENGTH) {
+            editProjectDescriptionEditor.deleteText(MAX_DESCRIPTION_LENGTH, text.length);
+        }
+    });
+
+
+    //ChatGPT slut
+
+
+
     // === Copy WYSIWYG content to hidden textarea on submit ===
     const editProjectForm = document.querySelector('#editProjectModal form');
     editProjectForm.addEventListener('submit', function (e) {
         const hiddenInput = document.querySelector('#edit-project-description');
         hiddenInput.value = editProjectDescriptionEditor.root.innerHTML;
     });
+
+
+    // ChatGPT för att begränsa antal tecken i description på add
+
+    // === WYSIWYG Add Project – begränsa rader ===
+    addProjectDescriptionQuill.on('text-change', function (delta, oldDelta, source) {
+        const lines = addProjectDescriptionQuill.getLines();
+
+        if (lines.length > MAX_DESCRIPTION_LINES) {
+            const lastLine = lines[MAX_DESCRIPTION_LINES];
+            const lastLineIndex = addProjectDescriptionQuill.getIndex(lastLine);
+            addProjectDescriptionQuill.deleteText(lastLineIndex - 1, lastLine.length() + 1);
+        }
+
+        addProjectDescriptionTextArea.value = addProjectDescriptionQuill.root.innerHTML;
+    });
+
+
+    const MAX_DESCRIPTION_LENGTH = 100;
+
+    addProjectDescriptionQuill.on('text-change', function (delta, oldDelta, source) {
+        const text = addProjectDescriptionQuill.getText();
+
+        // Om texten överskrider maxlängd (Quill lägger till \n på slutet, så vi justerar för det)
+        if (text.trim().length > MAX_DESCRIPTION_LENGTH) {
+            addProjectDescriptionQuill.deleteText(MAX_DESCRIPTION_LENGTH, text.length);
+        }
+
+        addProjectDescriptionTextArea.value = addProjectDescriptionQuill.root.innerHTML;
+    });
+
+
+    //ChatGPT slut
+
+
+
+
+
+
+
+
+    //Slut ChatGPT
+
+
 
     // === HANDLE All Form Submits ===
     const forms = document.querySelectorAll('form');

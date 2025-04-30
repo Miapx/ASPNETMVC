@@ -291,10 +291,12 @@ form button {
     font-style: normal !important;
     transition: border-color 0.1s ease-in-out;
 
-    &:focus {
-                border: 3px solid var(--blue-accent); 
-                border-radius: .375rem;
-           }
+    &:focus
+{
+    /* opacity på outline är .25 i bootstraps root, höjer till 35 - ser mer lika ut */
+    outline: .25rem solid rgba(13, 110, 253, 0.35);
+    transition: .15s ease-in-out box-shadow .15s ease-in-out;
+}
 
 &ql-blank::before {
     color: var(--gray-200);
