@@ -208,13 +208,15 @@ form button {
     font-weight: var(--font-semibold);
 }
 
-.modal .modal-content {
-    background-color: var(--white-100);
-    border-radius: 16px;
-    box-shadow: 0 4px 4px 3px #20212309;
-    padding: 1rem;
-    width: 450px;
-}
+    .modal .modal-content {
+        background-color: var(--white-100);
+        border-radius: 16px;
+        box-shadow: 0 4px 4px 3px #20212309;
+        padding: 1rem;
+        width: 450px;
+        max-height: 100vh;
+        overflow: auto;
+    }
 
 .modal .modal-content .modal-header {
     display: flex;
