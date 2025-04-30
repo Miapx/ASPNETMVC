@@ -309,13 +309,13 @@ form button {
 .wysiwyg-toolbar {
     display: flex;
     position: absolute;
-    bottom: 0;
+    bottom: 0px;
     width: 100%;
     padding-top: 0rem !important;
     border: none !important;
     border-top: 1px solid var(--border) !important;
     border-radius: 0;
-     
+        
 }
 
 .field-group {
@@ -328,6 +328,10 @@ form button {
 
 .ql-formats {
     display: flex;
+
+    button {
+                 margin-top: 5px;
+             }
 }
 
 
