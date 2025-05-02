@@ -42,44 +42,4 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 })
 
-//ChatGPT för att fetcha projectid på edit-knappen
-//document.querySelectorAll(".edit-project-btn").forEach(btn => {
-//    btn.addEventListener("click", async () => {
-//        const projectId = btn.dataset.projectId;
-//        console.log(projectId)
-//        const response = await fetch(`/Projects/EditProject?id=${projectId}`);
-//        const html = await response.text();
-        //const modal = document.getElementById('editform-container');
-
-        //modal.innerHTML = html;
-
-        //const targetModal = document.getElementById('editProjectModal')
-        //if (targetModal) {
-        //    targetModal.style.display = "flex";
-        //}
-//    });
-//});
-
-
-//document.querySelectorAll(".edit-project-btn").forEach(btn => {
-//    btn.addEventListener("click", async () => {
-//        const projectId = btn.dataset.projectId;
-//        const response = await fetch(`/Projects/EditProject?id=${projectId}`);
-//        const html = await response.text();
-
-//        const modal = document.querySelector('#editProjectModal');
-//        if (modal) {
-//            modal.innerHTML = html;
-//            modal.style.display = "flex";
-
-//            // Lägg till close-listener på den nya knappen som finns i den laddade partialen
-//            const closeBtn = modal.querySelector('[data-close="true"]');
-//            if (closeBtn) {
-//                closeBtn.addEventListener('click', () => {
-//                    modal.style.display = 'none';
-//                });
-//            }
-//        }
-//    });
-//});
 

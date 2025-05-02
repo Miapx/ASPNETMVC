@@ -128,7 +128,6 @@ public class ProjectService(ProjectRepository projectRepository, StatusService s
         return result;
     }
 
-    //För att hämta STARTED 
     public async Task<List<Project>> GetProjectsByStatusAsync(int status)
     {
         var projectEntities = await _projectRepository.GetAllAsync(
@@ -155,7 +154,6 @@ public class ProjectService(ProjectRepository projectRepository, StatusService s
         }).ToList();
     }
 
-    //DELETE
     public bool DeleteProject(string id)
     {
         var project = _projectRepository.GetById(id);

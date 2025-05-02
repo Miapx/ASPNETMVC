@@ -65,7 +65,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     font-size: 2.25rem;
-    font-weight: var(---font-bold);
+    font-weight: var(--font-bold);
 }
 
 h2 {
@@ -266,9 +266,9 @@ form button {
     transition: border-color 0.1s ease-in-out;
 
     &:focus {
-        outline: .25rem solid rgba(13, 110, 253, 0.35);
-        transition: .15s ease-in-out box-shadow .15s ease-in-out;
-    }
+    outline: .25rem solid rgba(13, 110, 253, 0.35);
+    transition: outline .05s ease-in-out, transform .05s ease-in-out; 
+}
 
     &ql-blank::before {
         color: var(--gray-200);
@@ -445,7 +445,7 @@ form button {
 }
 
 .tab-link {
-    font-weight: var(---font-bold);
+    font-weight: var(--font-bold);
     font-family: var(--font-standard);
     font-size: 0.938rem;
 }
@@ -454,7 +454,7 @@ form button {
     font-family: var(--font-logo);
     color: var(--text-color);
     text-decoration: none;
-    font-weight: var(---font-semibold);
+    font-weight: var(--font-semibold);
 }
 
 /* buttons */
@@ -465,7 +465,7 @@ button {
 .btn {
     border-radius: 14px;
     font-size: .9em;
-    font-weight: var(---font-regular);
+    font-weight: var(--font-regular);
     font-family: var(--font-standard);
     padding: .5rem 1.5rem;
     display: flex;
@@ -568,6 +568,7 @@ button {
     .project-items-list {
         display: flex;
         flex-direction: column;
+
     }
 }
 

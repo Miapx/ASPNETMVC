@@ -112,8 +112,6 @@ public class ProjectsController(ProjectService projectService, StatusService sta
         return Ok(new { success = true });
     }
 
-    //DELETE
-
     [HttpPost]
     [Route("Projects/DeleteProject/{id}")]
     public IActionResult DeleteProject(string id)
